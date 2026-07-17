@@ -30,6 +30,7 @@ Puedes echarle un ojo a [mi compilación de dwm](https://github.com/b4zh/dwm-6.8
 ## Screenshots
 
 ![preview1](./assets/images/preview1.png)
+
 ![preview2](./assets/images/preview2.png)
 
 ## Recursos
