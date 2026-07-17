@@ -1,10 +1,10 @@
 # dwmblocks-async - Mis scripts
 
-Estos son mis scrtips que utilizo en la barra de estado de [dwmblocks-async.](https://github.com/UtkarshVerma/dwmblocks-async)
+Estos son mis scripts que utilizo en la barra de estado de [dwmblocks-async.](https://github.com/UtkarshVerma/dwmblocks-async)
 
 - `config.h`: fichero de configuración de **dwmblocks-async**.
 
-- `colors`: fichero que contiene las **variables de entorno** que utilice para los **colores** de la barra.
+- `colors`: fichero que contiene las **variables de entorno** que utilizo para los **colores** de la barra.
 
 - `sb-scripts/`: **directorio** donde se encuentran **mis scripts**.
 
