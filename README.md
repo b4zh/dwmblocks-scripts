@@ -27,6 +27,11 @@ Tu **dwm** debe estar parcheado con:
 
 Puedes echarle un ojo a [mi compilación de dwm](https://github.com/b4zh/dwm-6.8), que está parcheado con esos 2 parches y otros más.
 
+## Screenshots
+
+![preview1](./assets/images/preview1.png)
+![preview2](./assets/images/preview2.png)
+
 ## Recursos
 
 Los recursos que me sirvieron de **guía** fueron los siguientes:
