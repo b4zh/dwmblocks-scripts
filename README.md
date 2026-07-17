@@ -37,8 +37,8 @@ Puedes echarle un ojo a [mi compilación de dwm](https://github.com/b4zh/dwm-6.8
 
 Los recursos que me sirvieron de **guía** fueron los siguientes:
 
-[Gerry Studios - Vídeo sobre dwmblocks](https://www.youtube.com/watch?v=NNwcCPVwr2A)
+- [Gerry Studios - Vídeo sobre dwmblocks](https://www.youtube.com/watch?v=NNwcCPVwr2A)
 
-[Gerry Studios - Scripts dwmblocks](https://git.ricebes.cat/dotfiles/tree/.config/dwmblocks.html)
+- [Gerry Studios - Scripts dwmblocks](https://git.ricebes.cat/dotfiles/tree/.config/dwmblocks.html)
 
-[Luke Smith - Vídeo sobre dwmblocks](https://www.youtube.com/watch?v=UP2QpHmcgyk)
+- [Luke Smith - Vídeo sobre dwmblocks](https://www.youtube.com/watch?v=UP2QpHmcgyk)
