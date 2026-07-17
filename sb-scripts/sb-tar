@@ -1,0 +1,28 @@
+#!/bin/sh
+
+case $BLOCK_BUTTON in
+	2) st -e "$EDITOR" "$0";;
+	8) st -e "$EDITOR" ~/.local/bin/target;;
+esac
+
+if [ -e ~/.target.txt ] && [ -n "$(cat ~/.target.txt)" ]; then
+	uno=$(tail -n1 ~/.target.txt | awk '{print $1}') #name
+	dos=$(tail -n1 ~/.target.txt | awk '{print $2}') #ip
+	target="$(head -n1 ~/.target.txt)"
+
+	echo "$C_GREEN󰞇 $C_WHITE$target "
+
+	if [ -n "$dos" ]; then
+		case $BLOCK_BUTTON in
+			1) echo -n $dos | xclip -sel clip; notify-send Copiado $dos;;
+			3) echo -n $uno | xclip -sel clip; notify-send Copiado $uno;;
+			9) echo -n "$uno $dos" | xclip -sel clip; notify-send Copiado "$uno $dos";;
+		esac
+	else
+		case $BLOCK_BUTTON in
+			1) echo -n $uno | xclip -sel clip; notify-send Copiado $uno;;
+		esac
+	fi
+else
+	echo "$C_DISABLED󰞇 Sin objetivo "
+fi

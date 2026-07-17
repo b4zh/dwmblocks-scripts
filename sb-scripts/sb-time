@@ -1,0 +1,19 @@
+#!/bin/sh
+
+time=$(date "+%H:%M")
+hour=$(echo "$time" | cut -d":" -f1)
+
+case $BLOCK_BUTTON in
+	1) wttr;;
+	2) st -e "$EDITOR" "$0";;
+esac
+
+[ $time = "00:00" ] && kill -48 $(pidof dwmblocks)
+
+if [ "$hour" -gt 7 ] && [ "$hour" -le 21 ]; then
+	echo "$C_YELLOW󱑆 ^d^$C_WHITE$time "
+else
+	echo "$C_BLUE󱑆 ^d^$C_WHITE$time "
+fi
+	
+

@@ -1,0 +1,29 @@
+#!/bin/sh
+
+ayuda () {
+echo """Uso: target [name] [ip]
+     target [option]
+
+	 Opciones:
+	-h	muestra esta ayuda
+	-c	borrar objetivo"""
+}
+
+sep="$C_GREEN/$C_WHITE"
+
+if [ -z "$1" ] || [ "$1" = "-h" ]; then
+	ayuda
+elif [ "$1" = "-c" ] && [ -z "$2" ] && [ -e ~/.target.txt ]; then
+	rm -f ~/.target.txt; kill -55 $(pidof dwmblocks)
+	echo "Objetivo borrado"
+elif [ "$1" = "-c" ] && [ -z "$2" ] && ! [ -e ~/.target.txt ]; then
+	echo "No hay objetivo que borrar"
+elif [ "$1" = "-c" ] && [ -n "$2" ]; then
+	echo "Error: no se esperaba ningún argumento después de la opción -c"
+elif [ -z "$2" ]; then
+	echo "$1" > ~/.target.txt
+	echo "Nuevo objetivo: $1"; kill -55 $(pidof dwmblocks)
+elif [ -n "$1" ] && [ -n "$2" ]; then
+	echo -e "$1$sep$2\n$1 $2" > ~/.target.txt; kill -55 $(pidof dwmblocks)
+	echo "Nuevo objetivo: $1 $2"
+fi

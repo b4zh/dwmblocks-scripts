@@ -1,0 +1,29 @@
+#!/bin/sh
+
+# memh = memoria legible por humanos
+# memu = solo la cantidad de memoria usada
+# memn = solo el valor númerico entero
+# meml = solo la unidad de almacenamiento, la letra
+
+memh=$(free -h | awk '/^Mem/ {print $3"/"$2}' | sed s/i//g)
+memu=$(echo "$memh" | cut -d "/" -f1)
+memn=$(echo "$memh" | cut -d"/" -f1 | tr -d "[:alpha:]" | cut -d"," -f1)
+meml=$(echo "$memu" | tr -d "[:digit:][:punct:]")
+
+case $BLOCK_BUTTON in
+	1) st -e htop --sort PERCENT_MEM;;
+	2) st -e "$EDITOR" "$0";;
+esac
+
+case $meml in
+	"M")echo "$C_GREEN  ^d^$C_WHITE$memh^d^ ";;
+	"G")
+		if [ "$memn" -le 20 ]; then
+			echo "$C_GREEN  ^d^$C_WHITE$memh^d^ "
+		elif [ "$memn" -gt 20 ] && [ "$memn" -le 35 ]; then
+			echo "$C_YELLOW  ^d^$C_WHITE$memh^d^ "
+		else
+			echo "$C_RED  ^d^$C_WHITE$memh^d^ "
+		fi
+		;;
+esac

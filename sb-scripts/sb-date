@@ -1,0 +1,11 @@
+#!/bin/sh
+
+dat=$(date "+%d %b %Y")
+#mesn=$(date "+%m" | sed s/^0*//g)
+
+case $BLOCK_BUTTON in
+	1) notify-send "$(cal)" -i /dev/null;;
+    2) st -e "$EDITOR" "$0" ;;
+esac
+
+echo "$C_RED ^d^$C_WHITE$dat^d^ "

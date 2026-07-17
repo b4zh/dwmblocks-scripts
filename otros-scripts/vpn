@@ -1,0 +1,13 @@
+#!/bin/sh
+
+signal () {
+	kill -54 $(pidof dwmblocks)
+}
+
+prueba () {
+	sleep 5 && signal
+}
+
+prueba > /dev/null &
+sudo openvpn $1
+signal

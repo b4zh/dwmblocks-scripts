@@ -1,0 +1,69 @@
+#!/bin/sh
+state=$(upower -b | awk '/state/ {print $2}') batt=$(upower -b | grep percentage | awk '{print $2}') battn=$(echo $batt | sed "s/%//g")
+
+case $BLOCK_BUTTON in
+	2) st -e $EDITOR $0
+esac
+
+# 40px ancho
+# 4px = 10%
+# 2px = 5%
+
+# 0% - 5% = 2px
+# 5% - 10% = 4px
+# 10% - 15% = 6px
+# 15% - 20% = 8px
+# 20% - 25% = 10px
+# 25% - 30% = 12px
+# 30% - 35% = 14px
+# 35% - 40% = 16px
+# 40% - 45% = 18px
+# 45% - 50% = 20px
+# 50% - 55% = 22px
+# 55% - 60% = 24px
+# 60% - 65% = 26px
+# 65% - 70% = 28px
+# 70% - 75% = 30px
+# 75% - 80% = 32px
+# 80% - 85% = 34px
+# 85% - 90% = 36px
+# 90% - 95% = 38px
+# 95% - 100% = 40px
+
+# Fórmula 1 = battn - ((battn / 5) * 3)
+# Fórmula 2 = (battn / 5) * 2
+# Fórmula 3 = battn / 2.5 --> ( Fórmula Final )
+
+barp=$(echo "$battn / 2.5" | bc) #convirtiendo el valor de la batería de PORCENTAJE% a PIXELESpx
+barx=$(echo "44 - $barp" | bc) #desplazamiento en X del dibujo de la batería
+
+if [ "$state" = "charging" ]; then
+	[ -e /tmp/.battlow ] && rm -f /tmp/.battlow
+	echo "^r0,8,3,7^^r3,3,42,17^$C_BLACK^r4,4,40,15^$C_BLUE^r$barx,4,$barp,15^^d^^f50^$C_WHITE$batt"
+	if ! [ -e /tmp/.charging ]; then
+		notify-send "Batería" "Cargando..."
+		echo "1" > /tmp/.charging
+	fi
+elif [ "$state" = "fully-charged" ]; then
+	echo "^r0,8,3,7^^r3,3,42,17^$C_BLACK^r4,4,40,15^$C_GREEN^r$barx,4,$barp,15^^d^^f50^$C_WHITE$batt"
+	if ! [ -e /tmp/.charged ]; then
+		notify-send "Batería" "Cargada :)"
+		echo "1" > /tmp/.charged
+	fi
+else
+	[ -e /tmp/.charging ] && rm -f /tmp/.charging
+	[ -e /tmp/.charged ] && rm -f /tmp/.charged
+	if [ "$battn" -le 19 ]; then
+		echo "^r0,8,3,7^^r3,3,42,17^$C_BLACK^r4,4,40,15^$C_RED^r$barx,4,$barp,15^^d^^f50^$C_WHITE$batt"
+	elif [ "$battn" = 20 ]; then
+		if ! [ -e /tmp/.battlow ]; then
+			notify-send --urgency critical "Batería" "Baja :("
+			echo "1" > /tmp/.battlow
+		fi
+		echo "^r0,8,3,7^^r3,3,42,17^$C_BLACK^r4,4,40,15^$C_RED^r$barx,4,$barp,15^^d^^f50^$C_WHITE$batt"
+	elif [ "$battn" -gt 20 ] && [ "$battn" -le 40 ]; then
+		echo "^r0,8,3,7^^r3,3,42,17^$C_BLACK^r4,4,40,15^$C_YELLOW^r$barx,4,$barp,15^^d^^f50^$C_WHITE$batt"
+	else
+		echo "^r0,8,3,7^^r3,3,42,17^$C_BLACK^r4,4,40,15^$C_GREEN^r$barx,4,$barp,15^^d^^f50^$C_WHITE$batt"
+	fi
+fi

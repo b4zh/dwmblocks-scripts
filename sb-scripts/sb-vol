@@ -1,0 +1,22 @@
+#!/bin/sh
+
+volh=$(pamixer --get-volume-human)
+voln=$(echo "$volh" | tr -d "[=%=]")
+
+case $BLOCK_BUTTON in
+	1) st -e pulsemixer;;
+	2) st -e "$EDITOR" "$0";;
+	3) pavucontrol;;
+esac
+
+if [ "$volh" = "muted" ]; then
+	echo "$C_DISABLED  ";
+elif [ "$voln" = "0" ]; then
+	echo "$C_GREEN $C_WHITE$volh "
+elif [ "$voln" -gt 0 ] && [ "$voln" -le 50 ]; then
+	echo "$C_GREEN  $C_WHITE$volh "
+elif [ "$voln" -gt 50 ] && [ "$voln" -le 70 ]; then
+	echo "$C_YELLOW  $C_WHITE$volh "
+elif [ "$voln" -gt 70 ]; then
+	echo "$C_RED  $C_WHITE$volh "
+fi

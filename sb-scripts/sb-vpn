@@ -1,0 +1,21 @@
+#!/bin/sh
+
+vpnmask=$(ip -brief a | grep tun0 | awk '{print $3}') # ip con máscara de subred CIDR
+vpn=$(ip -brief a | grep tun0 | awk '{print $3}' | cut -d"/" -f1) # ip sin máscara de subred
+
+case $BLOCK_BUTTON in
+	2) st -e "$EDITOR" "$0";;
+	8) st -e "$EDITOR" ~/.local/bin/vpn
+	#3) st -e lf ~/Descargas/vpn;;
+esac
+
+if [ -z "$vpnmask" ]; then
+	echo " $C_DISABLED󰆧 Sin VPN "
+else
+	echo " $C_GREEN󰆧 $C_WHITE$vpnmask "
+	case $BLOCK_BUTTON in
+		1) echo -n $vpn | xclip -sel clip; notify-send Copiado "$vpn";;
+	esac
+fi
+
+

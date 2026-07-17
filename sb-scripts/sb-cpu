@@ -1,0 +1,35 @@
+#!/bin/sh
+
+# Gracias a:
+# https://linuxvox.com/blog/accurately-calculating-cpu-utilization-in-linux-using-proc-stat/
+
+case $BLOCK_BUTTON in
+	1) st -e htop --sort PERCENT_CPU;;
+	2) st -e "$EDITOR" "$0";;
+esac
+
+m1=$(grep "cpu " /proc/stat | sed 's/^cpu *//g' | cut -d" " -f1-8)
+sleep 1
+m2=$(grep "cpu " /proc/stat | sed 's/^cpu *//g' | cut -d" " -f1-8)
+
+deltas=() # array vacío
+
+for i in {1..8}; do
+	d=$(echo -e "$m1\n$m2" | cut -d" " -f$i | sort -nr | xargs | tr " " "-" | bc)
+	deltas+=("$d") # añadiendo valores al array
+done
+
+total_jiffies=$(echo ${deltas[@]} | tr " " "+" | bc)
+idle_jiffies=${deltas[3]}
+
+busy_jiffies=$(awk "BEGIN {print $total_jiffies - $idle_jiffies}")
+cpu=$(awk "BEGIN {print ($busy_jiffies / $total_jiffies) * 100}" | tr "." ",")
+cpun=$(echo $cpu | cut -d"," -f1)
+
+if [ "$cpun" -le 50 ]; then
+	printf "$C_GREEN $C_WHITE%.2f%% " $cpu
+elif [ "$cpu" -gt 50 ] && [ "$cpun" -le 70 ]; then
+	printf "$C_YELLOW $C_WHITE%.2f%% " $cpu
+else
+	printf "$C_RED $C_WHITE%.2f%% " $cpu
+fi
