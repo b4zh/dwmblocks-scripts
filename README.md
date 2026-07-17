@@ -6,7 +6,7 @@ Estos son mis scrtips que utilizo en la barra de estado de [dwmblocks-async.](ht
 
 - `colors`: fichero que contiene las **variables de entorno** que utilice para los **colores** de la barra.
 
-- `scripts/`: **directorio** donde se encuentran **mis scripts**.
+- `sb-scripts/`: **directorio** donde se encuentran **mis scripts**.
 
 - `otros-scripts/`: **directorio** donde se encuentran **otros scripts** necesarios para el funcionamiento de los siguientes scripts:
     - `vpn`: Script que ejecuta `openvpn` y manda señales de actualización al script `sb-vpn`.
@@ -14,7 +14,7 @@ Estos son mis scrtips que utilizo en la barra de estado de [dwmblocks-async.](ht
 
 ## Configuración
 
-Los `scripts/` deben estar en el directorio `~/.config/dwmblocks`.
+Los scripts de `sb-scripts/` deben guardarse en el directorio `~/.config/dwmblocks/`. **Ej:** `~/.config/dwmblocks/sb-batt`
 
 Los `otros-scripts/` deben estar en algún directorio del **$PATH**.
 
