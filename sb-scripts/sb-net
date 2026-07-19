@@ -5,11 +5,11 @@ eth=$(ip -brief a | awk '/eth0/ {print $3}' | cut -d"/" -f1)
 ip=
 
 if [ -n "$wlan" ]; then
-	echo "$C_GREEN󰖩 ^d^$C_WHITE$ip^d^ "
+	echo "$C_GREEN󰖩 ^d^$C_WHITE$wlan^d^ "
 	ip=$wlan
 elif [ -n "$eth" ]; then
-	echo "$C_GREEN󰖩 ^d^$C_WHITE$ip^d^ "
-	ip=$wlan
+	echo "$C_GREEN󰖩 ^d^$C_WHITE$eth^d^ "
+	ip=$eth
 else
 	echo "$C_DISABLED󰖩 Sin conexión^d^ "
 fi
