@@ -1,15 +1,21 @@
 #!/bin/sh
 
-ip=$(ip -brief a | awk '/wlan0/ {print $3}' | cut -d"/" -f1)
+wlan=$(ip -brief a | awk '/wlan0/ {print $3}' | cut -d"/" -f1)
+eth=$(ip -brief a | awk '/eth0/ {print $3}' | cut -d"/" -f1)
+ip=
+
+if [ -n "$wlan" ]; then
+	echo "$C_GREEN󰖩 ^d^$C_WHITE$ip^d^ "
+	ip=$wlan
+elif [ -n "$eth" ]; then
+	echo "$C_GREEN󰖩 ^d^$C_WHITE$ip^d^ "
+	ip=$wlan
+else
+	echo "$C_DISABLED󰖩 Sin conexión^d^ "
+fi
 
 case $BLOCK_BUTTON in
 	1) echo -n "$ip" | xclip -sel clip; notify-send "IP" "Copiada";;
 	2) st -e "$EDITOR" "$0";;
 	3) st -e iwctl;;
 esac
-
-if [ -n "$ip" ]; then
-	echo "$C_GREEN󰖩 ^d^$C_WHITE$ip^d^ "
-else
-	echo "$C_DISABLED󰖩 Sin conexión^d^ "
-fi
