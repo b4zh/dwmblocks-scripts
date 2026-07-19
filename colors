@@ -1,3 +1,4 @@
+# --- BEGIN COLORS
 export C_DISABLED="^c#bbbbbb^"
 export C_RED="^c#ff5f5f^"
 export C_GREEN="^c#8acb69^"
@@ -5,3 +6,4 @@ export C_YELLOW="^c#ffff87^"
 export C_BLUE="^c#00afff^"
 export C_WHITE="^c#ffffff^"
 export C_BLACK="^c#000000^"
+# --- END COLORS
