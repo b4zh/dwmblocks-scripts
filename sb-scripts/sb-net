@@ -8,14 +8,14 @@ if [ -n "$wlan" ]; then
 	echo "$C_GREEN󰖩 ^d^$C_WHITE$wlan^d^ "
 	ip=$wlan
 elif [ -n "$eth" ]; then
-	echo "$C_GREEN󰖩 ^d^$C_WHITE$eth^d^ "
+	echo "$C_GREEN󰈀 ^d^$C_WHITE$eth^d^ "
 	ip=$eth
 else
-	echo "$C_DISABLED󰖩 Sin conexión^d^ "
+	echo "$C_DISABLED Sin conexión^d^ "
 fi
 
 case $BLOCK_BUTTON in
 	1) echo -n "$ip" | xclip -sel clip; notify-send "IP" "Copiada";;
 	2) st -e "$EDITOR" "$0";;
-	3) st -e iwctl;;
+	3) st -e iwctl || notify-send "Lorem ipsum :/";;
 esac
